@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Registering!</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the body to apply the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <!-- Main container for the thank you page content -->
+    <div class="relative w-full max-w-md bg-white p-8 rounded-xl shadow-lg text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Thank You for Registering!</h2>
+        <p class="text-lg text-gray-600 mb-8">
+            Your registration was successful. Click the button below to download your PDF.
+        </p>
+        <button id="downloadPdfButton"
+                class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full shadow-md
+                       transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
+            Download Data Analytics PDF
+        </button>
+        <div class="mt-6 text-center">
+            <button id="backToWelcomeButton"
+                    class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 focus:outline-none">
+                Go Back to Welcome Page
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const downloadPdfButton = document.getElementById('downloadPdfButton');
+            const backToWelcomeButton = document.getElementById('backToWelcomeButton');
+            const pdfUrl = 'https://cdn.chools.in/DIG_LIB/E-Book/eBook_Data_Analytics.pdf';
+
+            // Event listener for the "Download Data Analytics PDF" button
+            if (downloadPdfButton) {
+                downloadPdfButton.addEventListener('click', () => {
+                    window.open(pdfUrl, '_blank');
+                });
+            }
+
+            // Event listener to go back to the welcome page
+            if (backToWelcomeButton) {
+                backToWelcomeButton.addEventListener('click', () => {
+                    // This will cause a SyntaxError in the Canvas environment,
+                    // but works in a real browser when files are served from a web server.
+                    window.location.href = 'index.html'; // Assuming index.html is your main landing page
+                });
+            }
+        });
+    </script>
+</body>
+</html>
