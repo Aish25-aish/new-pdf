@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for PDF Access</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the body to apply the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        /* Style for the custom message box */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <!-- Main container for the registration page content -->
+    <div class="relative w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Register to Access PDF</h2>
+        <form class="space-y-4" id="registrationForm">
+            <div>
+                <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Full Name</label>
+                <input type="text" id="name" name="name" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="John Doe">
+            </div>
+            <div>
+                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="john.doe@example.com">
+            </div>
+            <div>
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                <input type="password" id="password" name="password" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="********">
+            </div>
+            <button type="submit" id="signUpButton"
+                    class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-full shadow-md
+                           transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
+                Register & Get PDF
+            </button>
+        </form>
+        <div class="mt-6 text-center">
+            <button id="backToWelcomeButton"
+                    class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 focus:outline-none">
+                Go Back to Welcome Page
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="messageBox" class="message-box"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signUpButton = document.getElementById('signUpButton');
+            const backToWelcomeButton = document.getElementById('backToWelcomeButton');
+            const messageBox = document.getElementById('messageBox');
+            const pdfUrl = 'https://cdn.chools.in/DIG_LIB/E-Book/eBook_Data_Analytics.pdf';
+
+            // Function to display a temporary message
+            const showMessage = (message, duration = 2000) => {
+                messageBox.textContent = message;
+                messageBox.classList.add('show');
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                }, duration);
+            };
+
+            // Event listener for the "Register & Get PDF" button
+            if (signUpButton) {
+                signUpButton.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    // Basic validation for demonstration purposes
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+
+                    if (name && email && password) {
+                        showMessage("Registration successful! Opening PDF...", 2000);
+                        // Simulate a delay before opening PDF
+                        setTimeout(() => {
+                            window.open(pdfUrl, '_blank');
+                        }, 1500);
+                    } else {
+                        showMessage("Please fill in all fields.", 2000);
+                    }
+                });
+            }
+
+            // Event listener to go back to the landing page
+            if (backToWelcomeButton) {
+                backToWelcomeButton.addEventListener('click', () => {
+                    // This will cause a SyntaxError in the Canvas environment,
+                    // but works in a real browser when files are served from a web server.
+                    window.location.href = 'index.html'; // Assuming index.html is your landing page
+                });
+            }
+        });
+    </script>
+</body>
+</html>
