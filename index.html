@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Data Analytics PDF</title>
+    <title>Welcome Page</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
             padding: 20px; /* Add some padding for smaller screens */
             box-sizing: border-box; /* Include padding in element's total width and height */
         }
-        /* Style for the custom message box (if needed, though not directly used for this flow) */
+        /* Style for the custom message box */
         .message-box {
             position: fixed;
             top: 50%;
@@ -43,92 +43,39 @@
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
 
-    <!-- Main container to hold all page sections -->
-    <div class="relative w-full max-w-md bg-white p-8 rounded-xl shadow-lg transition-all duration-500 ease-in-out main-container">
+    <!-- Main container for the landing page content -->
+    <div class="relative w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
 
         <!-- Landing Page Section -->
         <div id="landingPage" class="text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome to the Data Analytics PDF!</h1>
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome!</h1>
             <p class="text-lg text-gray-600 mb-8">
-                Click the button below to access your free Data Analytics PDF.
+                Click the button below to get started and register.
             </p>
-            <button id="downloadPdfButton"
+            <button id="downloadButton"
                     class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-md
                            transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
-                Download PDF
+                Download
             </button>
         </div>
     </div>
 
+    <!-- Custom Message Box -->
+    <div id="messageBox" class="message-box"></div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const downloadPdfButton = document.getElementById('downloadPdfButton');
-            const manualPdfButton = document.getElementById('manualPdfButton');
-            const backToWelcomeButton = document.getElementById('backToWelcomeButton');
+            const downloadButton = document.getElementById('downloadButton');
 
-            const landingPage = document.getElementById('landingPage');
-            const pdfViewerPage = document.getElementById('pdfViewerPage');
-            const mainContainer = document.querySelector('.main-container');
-
-            const pdfUrl = 'https://cdn.chools.in/DIG_LIB/E-Book/eBook_Data_Analytics.pdf';
-
-            // Function to show the PDF viewer page
-            const showPdfViewer = () => {
-                landingPage.classList.add('hidden');
-                pdfViewerPage.classList.remove('hidden');
-                adjustContainerHeight();
-                // Attempt to open the PDF automatically
-                window.open(pdfUrl, '_blank');
-            };
-
-            // Function to show the landing page
-            const showLanding = () => {
-                pdfViewerPage.classList.add('hidden');
-                landingPage.classList.remove('hidden');
-                adjustContainerHeight();
-            };
-
-            // Event listener for the "Download PDF" button on the landing page
-            if (downloadPdfButton) {
-                downloadPdfButton.addEventListener('click', showPdfViewer);
-            }
-
-            // Event listener for the manual PDF button (fallback)
-            if (manualPdfButton) {
-                manualPdfButton.addEventListener('click', () => {
-                    window.open(pdfUrl, '_blank');
+            // Event listener for the "Download" button
+            if (downloadButton) {
+                downloadButton.addEventListener('click', () => {
+                    // Redirect to the registration page
+                    window.location.href = 'registrationPage.html';
                 });
             }
-
-            // Event listener to go back to the landing page from PDF viewer
-            if (backToWelcomeButton) {
-                backToWelcomeButton.addEventListener('click', showLanding);
-            }
-
-            // Function to adjust container height based on visible content
-            const adjustContainerHeight = () => {
-                if (!mainContainer) {
-                    console.error("Main container element not found for height adjustment.");
-                    return;
-                }
-                let currentVisiblePage;
-                if (!landingPage.classList.contains('hidden')) {
-                    currentVisiblePage = landingPage;
-                } else if (!pdfViewerPage.classList.contains('hidden')) {
-                    currentVisiblePage = pdfViewerPage;
-                }
-
-                if (currentVisiblePage) {
-                    // Set min-height based on the currently visible content's scrollHeight
-                    // Adding 40px for padding/margin
-                    mainContainer.style.minHeight = (currentVisiblePage.scrollHeight + 40) + 'px';
-                }
-            };
-
-            // Adjust height initially (on load) and on window resize
-            window.addEventListener('resize', adjustContainerHeight);
-            adjustContainerHeight(); // Call once on load to set initial height
         });
     </script>
 </body>
 </html>
+
