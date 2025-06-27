@@ -3,78 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
-    <!-- Load Tailwind CSS -->
+    <title>Welcome to Our Site</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the body to apply the Inter font */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Light grey background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Ensure it takes full viewport height */
-            margin: 0;
-            padding: 20px; /* Add some padding for smaller screens */
-            box-sizing: border-box; /* Include padding in element's total width and height */
-        }
-        /* Style for the custom message box */
-        .message-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-        .message-box.show {
-            opacity: 1;
-            visibility: visible;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-
-    <!-- Main container for the landing page content -->
-    <div class="relative w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
-
-        <!-- Landing Page Section -->
-        <div id="landingPage" class="text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome!</h1>
-            <p class="text-lg text-gray-600 mb-8">
-                Click the button below to get started and register.
-            </p>
-            <button id="downloadButton"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-md
-                           transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
-                Download
-            </button>
-        </div>
+<body class="bg-gradient-to-r from-blue-500 to-indigo-600 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-8 md:p-12 rounded-xl shadow-2xl max-w-lg w-full text-center transform transition-transform duration-300 hover:scale-105">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
+            Welcome!
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+            Discover valuable insights and resources. Register now to gain access to exclusive content, including our latest PDF.
+        </p>
+        <a href="./registration.html" class="inline-block bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-75">
+            Register Now
+        </a>
     </div>
-
-    <!-- Custom Message Box -->
-    <div id="messageBox" class="message-box"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const downloadButton = document.getElementById('downloadButton');
-
-            // Event listener for the "Download" button
-            if (downloadButton) {
-                downloadButton.addEventListener('click', () => {
-                    // Redirect to the registration page
-                    window.location.href = 'registrationPage.html';
-                });
-            }
-        });
-    </script>
 </body>
 </html>
