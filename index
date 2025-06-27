@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Data Analytics PDF</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the body to apply the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        /* Style for the custom message box (if needed, though not directly used for this flow) */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <!-- Main container to hold all page sections -->
+    <div class="relative w-full max-w-md bg-white p-8 rounded-xl shadow-lg transition-all duration-500 ease-in-out main-container">
+
+        <!-- Landing Page Section -->
+        <div id="landingPage" class="text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome to the Data Analytics PDF!</h1>
+            <p class="text-lg text-gray-600 mb-8">
+                Click the button below to access your free Data Analytics PDF.
+            </p>
+            <button id="downloadPdfButton"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-md
+                           transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+                Download PDF
+            </button>
+        </div>
+
+        <!-- PDF Viewer Page Section (Initially hidden) -->
+        <div id="pdfViewerPage" class="hidden absolute top-0 left-0 w-full h-full p-8 bg-white rounded-xl text-center">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Redirecting to PDF...</h1>
+            <p class="text-lg text-gray-600 mb-8">If the PDF does not open automatically, please click the button below.</p>
+            <button id="manualPdfButton"
+                    class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full shadow-md
+                           transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
+                Open PDF
+            </button>
+            <div class="mt-6">
+                <button id="backToWelcomeButton"
+                        class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 focus:outline-none">
+                    Go Back to Welcome Page
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const downloadPdfButton = document.getElementById('downloadPdfButton');
+            const manualPdfButton = document.getElementById('manualPdfButton');
+            const backToWelcomeButton = document.getElementById('backToWelcomeButton');
+
+            const landingPage = document.getElementById('landingPage');
+            const pdfViewerPage = document.getElementById('pdfViewerPage');
+            const mainContainer = document.querySelector('.main-container');
+
+            const pdfUrl = 'https://cdn.chools.in/DIG_LIB/E-Book/eBook_Data_Analytics.pdf';
+
+            // Function to show the PDF viewer page
+            const showPdfViewer = () => {
+                landingPage.classList.add('hidden');
+                pdfViewerPage.classList.remove('hidden');
+                adjustContainerHeight();
+                // Attempt to open the PDF automatically
+                window.open(pdfUrl, '_blank');
+            };
+
+            // Function to show the landing page
+            const showLanding = () => {
+                pdfViewerPage.classList.add('hidden');
+                landingPage.classList.remove('hidden');
+                adjustContainerHeight();
+            };
+
+            // Event listener for the "Download PDF" button on the landing page
+            if (downloadPdfButton) {
+                downloadPdfButton.addEventListener('click', showPdfViewer);
+            }
+
+            // Event listener for the manual PDF button (fallback)
+            if (manualPdfButton) {
+                manualPdfButton.addEventListener('click', () => {
+                    window.open(pdfUrl, '_blank');
+                });
+            }
+
+            // Event listener to go back to the landing page from PDF viewer
+            if (backToWelcomeButton) {
+                backToWelcomeButton.addEventListener('click', showLanding);
+            }
+
+            // Function to adjust container height based on visible content
+            const adjustContainerHeight = () => {
+                if (!mainContainer) {
+                    console.error("Main container element not found for height adjustment.");
+                    return;
+                }
+                let currentVisiblePage;
+                if (!landingPage.classList.contains('hidden')) {
+                    currentVisiblePage = landingPage;
+                } else if (!pdfViewerPage.classList.contains('hidden')) {
+                    currentVisiblePage = pdfViewerPage;
+                }
+
+                if (currentVisiblePage) {
+                    // Set min-height based on the currently visible content's scrollHeight
+                    // Adding 40px for padding/margin
+                    mainContainer.style.minHeight = (currentVisiblePage.scrollHeight + 40) + 'px';
+                }
+            };
+
+            // Adjust height initially (on load) and on window resize
+            window.addEventListener('resize', adjustContainerHeight);
+            adjustContainerHeight(); // Call once on load to set initial height
+        });
+    </script>
+</body>
+</html>
